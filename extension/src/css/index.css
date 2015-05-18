@@ -1,10 +1,12 @@
 #bottom { 
 	position: fixed;
 	bottom: 2%;
+	left: 50%;
+    	transform: translateX(-50%);
 }
 
 div.to_be_centered {
-	height: 10em;
+	height: 18em;
 	position: relative 
 }
 
@@ -18,16 +20,37 @@ div.to_be_centered a {
 	top: 50%;
 	left: 50%;
 	margin-right: -50%;
-	font-family : 'Lato', sans-serif;
-	transform: translate(-50%, -50%); 
+	font-family : 'Georgia', sans-serif;
+	transform: translate(-50%, -50%);
 }
 
 a {
-	/*text-decoration: none;*/
+	text-decoration: none;
 	color: black;
 }
 
+hr.style-eight {
+    padding: 0;
+    border: none;
+    width: 70%;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.style-eight:after {
+    content: "\221E ";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+
 #abstract {
+	font-style: italic;
+	font-family: 'Merriweather', 'sans-serif';
+	font-size: 1.3em;
 	text-align: center;
 	width: 50%;
 	margin: 0 auto;
@@ -42,7 +65,9 @@ div.to_be_centered a:hover {
 	color: grey;
 	/*text-decoration: underline;*/
 }
-
+a.down {
+	font-weight: bold;
+}
 p {
-	font-family : 'Roboto', 'Lato', sans-serif;
+	font-family: 'Lato', sans-serif;
 }

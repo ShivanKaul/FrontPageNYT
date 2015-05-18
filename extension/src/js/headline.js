@@ -18,7 +18,7 @@ function call_api() {
 					var title = result[0]
 					var randomNum = result[1]
 					var link = results[randomNum].url;
-					var abstract = results[randomNum].abstract;
+					var abstract = "&ldquo;" + results[randomNum].abstract + "&rdquo;";
 					document.getElementById("insert").setAttribute('href', link);
 					document.getElementById("insert").innerHTML = title;
 					document.getElementById("abstract").innerHTML = abstract;
