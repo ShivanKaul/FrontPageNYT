@@ -63,7 +63,6 @@ a:hover {
 
 div.to_be_centered a:hover {
 	color: grey;
-	/*text-decoration: underline;*/
 }
 a.down {
 	font-weight: bold;
