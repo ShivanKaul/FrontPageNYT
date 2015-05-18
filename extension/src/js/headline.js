@@ -20,6 +20,7 @@ function call_api() {
 					var link = results[randomNum].url;
 					var abstract = "&ldquo;" + results[randomNum].abstract + "&rdquo;";
 					document.getElementById("insert").setAttribute('href', link);
+					document.getElementById("insert").setAttribute('title', "Link to NYT article");
 					document.getElementById("insert").innerHTML = title;
 					document.getElementById("abstract").innerHTML = abstract;
 				}
