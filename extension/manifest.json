@@ -2,14 +2,17 @@
   "manifest_version": 2,
 
   "name": "FrontPage",
+  "short_name": "FP",
   "description": "Replace your new tab with a page that displays the latest science news displayed using the New York Times API.",
-  "version": "0.1",
+  "version": "1.0.1",
   "homepage_url": "http://shivankaulsahib.me",
   "chrome_url_overrides": {
       "newtab": "src/index.html"
    },
+   "icons": {
+      "128": "images/fp.png"
+  },
   "background": {
-      "scripts": [ "src/headline.js" ]
-   },
-  "permissions": [ "https://api.nytimes.com/*" ]
+      "scripts": [ "src/js/jquery-1.11.2.min.js", "src/js/headline.js" ]
+   }
 }
