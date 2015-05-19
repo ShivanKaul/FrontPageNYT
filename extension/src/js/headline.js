@@ -31,7 +31,8 @@ function call_api() {
 			},
 			error: function(statusCode, errorThrown) {
         			if (statusCode.status == 0) {
-            				document.getElementById("abstract").innerHTML = "Whoops, something went wrong. Are you sure you're connected to the Internet&#8482;?";
+        				document.getElementById("abstract").setAttribute('href', "mailto:shivan.sahib@mail.mcgill.ca");
+            				document.getElementById("abstract").innerHTML = "Whoops, something went wrong. Are you sure you're connected to the Internet? If you are, file a bug report/send me hate mail.";
         			}
     			}
 		});
