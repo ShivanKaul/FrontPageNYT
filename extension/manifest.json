@@ -4,7 +4,7 @@
   "name": "FrontPage",
   "short_name": "FP",
   "description": "Replace your new tab with a page that displays the latest science news displayed using the New York Times API.",
-  "version": "1.0.2.1",
+  "version": "1.0.3",
   "homepage_url": "http://shivankaulsahib.me",
   "chrome_url_overrides": {
       "newtab": "src/index.html"
