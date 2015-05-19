@@ -1,5 +1,6 @@
 function call_api() {
-	var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/science/.json?api-key=6b0b5eb0ff211fe59f2978cee9d8a906:14:71584868";
+	var public = secret
+	var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/science/.json?api-key=" + public.API_KEY
 	$(document).ready(function(){
 		$.ajax({
 			url: queryURL,
@@ -27,7 +28,12 @@ function call_api() {
 				else {
 					document.write("No news found!");
 				}
-			}
+			},
+			error: function(statusCode, errorThrown) {
+        			if (statusCode.status == 0) {
+            				document.getElementById("abstract").innerHTML = "You're offline, unfortunately. FrontPage is powered by The Internet &#8482;";
+        			}
+    			}
 		});
 	});
 }
