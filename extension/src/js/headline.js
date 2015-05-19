@@ -31,7 +31,7 @@ function call_api() {
 			},
 			error: function(statusCode, errorThrown) {
         			if (statusCode.status == 0) {
-            				document.getElementById("abstract").innerHTML = "You're offline, unfortunately. FrontPage is powered by The Internet &#8482;";
+            				document.getElementById("abstract").innerHTML = "Whoops, something went wrong. Are you sure you're connected to the Internet&#8482;?";
         			}
     			}
 		});
