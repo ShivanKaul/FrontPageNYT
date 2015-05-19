@@ -12,6 +12,7 @@
    "icons": {
       "128": "images/fp.png"
   },
+  "permissions": [ "https://api.nytimes.com/*" ],
   "background": {
       "scripts": [ "src/js/jquery-1.11.2.min.js", "src/js/headline.js" ]
    }
