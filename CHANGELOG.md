@@ -1,5 +1,10 @@
 Changelog
 --------
+### 1.0.5
+- Remove hr
+- Remove error in place of blank page
+- Get all news
+
 ### 1.0.4
 - Include link to my email if things go wrong
 - Add apis to permissions

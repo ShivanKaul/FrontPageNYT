@@ -1,15 +1,15 @@
 function call_api() {
 	var public = secret
-	var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/science/.json?api-key=" + public.API_KEY
+	var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/all/.json?api-key=" + public.API_KEY
 	$(document).ready(function(){
 		$.ajax({
 			url: queryURL,
 			dataType: "json",
 			statusCode: {
-	        	502: function () {
-	        		console.log("Error 502 thrown.")
-	        	}
-	        },
+				502: function () {
+					console.log("Error 502 thrown.")
+				}
+			},
 			success: function (queryResult) {
 				// get array of all headlines
 				var results = queryResult.results;
@@ -30,19 +30,22 @@ function call_api() {
 				}
 			},
 			error: function(statusCode, errorThrown) {
-        			if (statusCode.status == 0) {
-            				document.getElementById("abstract").innerHTML = "Whoops, something went wrong. Are you sure you're connected to the Internet? If you are, file a bug report/send me hate mail at shivan.sahib@mail.mcgill.ca.";
-        			}
-    			}
+				if (statusCode.status == 0) {
+					document.getElementById("abstract").innerHTML = "";
+				}
+			}
 		});
-	});
+});
 }
 
 function getTitle(numResults, results) {
 	var bound = Math.min(19, numResults);
 	var randomNum = Math.floor((Math.random()*bound));
 	var title = results[randomNum].title;
-	while (title == "Letters to the Editor" || title == "Reactions") {
+	var uninteresting = (title == "Letters to the Editor" || title == "Reactions" || title.indexOf("Review: ") > -1)
+	// Basic uninteresting article filtering
+	while (uninteresting) {
+		uninteresting = false
 		var newResult = getTitle(numResults, results)
 		title = newResult[0];
 		randomNum = newResult[1]

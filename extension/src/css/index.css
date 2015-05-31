@@ -2,12 +2,12 @@
 	position: fixed;
 	bottom: 2%;
 	left: 50%;
-    	transform: translateX(-50%);
+	transform: translateX(-50%);
 }
 
 div.to_be_centered {
 	height: 18em;
-	position: relative 
+	position: relative;
 }
 
 div.to_be_centered a {
@@ -17,7 +17,7 @@ div.to_be_centered a {
 	font-size: 3em;
 	margin: 15px;
 	position: absolute;
-	top: 50%;
+	top: 65%;
 	left: 50%;
 	margin-right: -50%;
 	font-family : 'Georgia', serif;
@@ -29,30 +29,12 @@ a {
 	color: black;
 }
 
-hr.style-eight {
-    padding: 0;
-    border: none;
-    width: 70%;
-    border-top: medium double #333;
-    color: #333;
-    text-align: center;
-}
-hr.style-eight:after {
-    content: "\221E ";
-    display: inline-block;
-    position: relative;
-    top: -0.7em;
-    font-size: 1.5em;
-    padding: 0 0.25em;
-    background: white;
-}
-
 #abstract {
 	font-style: italic;
 	font-family: 'Merriweather', 'Georgia', 'serif';
 	font-size: 1.3em;
 	text-align: center;
-	width: 50%;
+	width: 40%;
 	margin: 0 auto;
 	color: grey;
 }
