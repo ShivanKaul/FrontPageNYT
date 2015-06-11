@@ -1,6 +1,6 @@
 function call_api() {
 	var public = secret
-	var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/all/.json?api-key=" + public.API_KEY
+	var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/business;world;science/.json?api-key=" + public.API_KEY
 	$(document).ready(function(){
 		$.ajax({
 			url: queryURL,
@@ -42,7 +42,7 @@ function getTitle(numResults, results) {
 	var bound = Math.min(19, numResults);
 	var randomNum = Math.floor((Math.random()*bound));
 	var title = results[randomNum].title;
-	var uninteresting = (title == "Letters to the Editor" || title == "Reactions" || title.indexOf("Review: ") > -1)
+	var uninteresting = (title == "Letters to the Editor" || title.indexOf("Evening Briefing") > -1 || title == "Reactions" || title.indexOf("Review: ") > -1)
 	// Basic uninteresting article filtering
 	while (uninteresting) {
 		uninteresting = false
