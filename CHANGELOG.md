@@ -1,5 +1,9 @@
 Changelog
 --------
+### 1.1
+- Reduce permissions required
+- 
+
 ### 1.0.5
 - Remove hr
 - Remove error in place of blank page
