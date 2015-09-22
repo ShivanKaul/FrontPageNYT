@@ -6,6 +6,7 @@
 }
 
 div.to_be_centered {
+	padding: 20px;
 	height: 18em;
 	position: relative;
 }
@@ -25,6 +26,7 @@ div.to_be_centered a {
 }
 
 a {
+	text-align: center;
 	text-decoration: none;
 	color: black;
 }

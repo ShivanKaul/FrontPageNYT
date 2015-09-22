@@ -1,17 +1,18 @@
 Changelog
 --------
 ### 1.1
-- Reduce permissions required
-- 
+- Reduce permissions required.
+- Center headline.
+- Padding is nice.
 
 ### 1.0.5
-- Remove hr
-- Remove error in place of blank page
-- Get all news
+- Remove hr.
+- Remove error in place of blank page.
+- Get all news.
 
 ### 1.0.4
-- Include link to my email if things go wrong
-- Add apis to permissions
+- Include link to my email if things go wrong.
+- Add apis to permissions.
 
 ### 1.0.3
 - Refactored a bunch of stuff.
