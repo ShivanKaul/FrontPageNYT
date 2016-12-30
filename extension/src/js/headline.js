@@ -1,6 +1,26 @@
+// Toggle this based on history
 var CYCLE_INTERVAL = 5;
+var CYCLE = false;
+var CATEGORIES = "business;world;science";
+// Depends on NYT API
 var MAX_STORIES = 20;
 
+// Restores interval and cycle using the preferences
+// stored in chrome.storage.
+function restoreOptions() {
+
+    chrome.storage.sync.get({
+        interval: 5,
+        categories: "business;world;science"
+        cycle: false
+    }, function(items) {
+        CATEGORIES = items.categories;
+        CYCLE_INTERVAL = items.interval;
+        CYCLE = items.cycle;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', restoreOptions);
 
 function displayStories(numResults, results) {
     var result = getStory(numResults, results);
@@ -21,7 +41,7 @@ function displayStories(numResults, results) {
 function callAPI() {
 
     var public = secret;
-    var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/business;world;science/.json?api-key=" + public.API_KEY;
+    var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/" + categories + "/.json?api-key=" + public.API_KEY;
     $(document).ready(function() {
         $.ajax({
             url: queryURL,
@@ -37,7 +57,8 @@ function callAPI() {
                 var numResults = queryResult.num_results;
 
                 if (numResults > 0) {
-                    window.setInterval(function() { displayStories(numResults, results); }, CYCLE_INTERVAL * 1000);
+                    CYCLE ? window.setInterval(function() { displayStories(numResults, results); },
+                        CYCLE_INTERVAL * 1000) : displayStories(numResults, results);
                 } else {
                     document.getElementById("abstract").innerHTML = "No news found!";
                 }
@@ -58,10 +79,7 @@ function getStory(numResults, results) {
     var bound = Math.min(MAX_STORIES - 1, numResults);
     var randomNum = Math.floor((Math.random() * bound));
     var title = results[randomNum].title;
-    var uninteresting = (title == "Letters to the Editor"
-        || title.indexOf("Evening Briefing") > -1
-        || title == "Reactions"
-        || title.indexOf("Review: ") > -1);
+    var uninteresting = (title == "Letters to the Editor" || title.indexOf("Evening Briefing") > -1 || title == "Reactions" || title.indexOf("Review: ") > -1);
     // Basic uninteresting article filtering
     while (uninteresting) {
         uninteresting = false;

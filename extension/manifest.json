@@ -12,6 +12,19 @@
     "icons": {
         "128": "images/fp.png"
     },
+    "permissions": ["storage"],
+    "browser_action": {
+        "default_icon": {
+          "16": "images/fp.png",
+          "32": "images/fp.png"
+        },
+        "default_title": "FrontPage: Get headlines from NYT",
+        "default_popup": "src/options/options.html"
+    },
+    "options_ui": {
+        "page": "src/options/options.html",
+        "chrome_style": true
+    },
     "background": {
         "scripts": ["src/js/jquery-1.11.2.min.js", "src/js/headline.js"]
     }
