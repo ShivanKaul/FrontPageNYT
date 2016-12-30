@@ -1,17 +1,16 @@
-// Toggle this based on history
+// Based on options
 var CYCLE_INTERVAL = 5;
 var CYCLE = false;
-var CATEGORIES = "business;world;science";
+var CATEGORIES = "all";
 // Depends on NYT API
 var MAX_STORIES = 20;
 
 // Restores interval and cycle using the preferences
 // stored in chrome.storage.
 function restoreOptions() {
-
     chrome.storage.sync.get({
         interval: 5,
-        categories: "business;world;science"
+        categories: "all",
         cycle: false
     }, function(items) {
         CATEGORIES = items.categories;
@@ -19,7 +18,7 @@ function restoreOptions() {
         CYCLE = items.cycle;
     });
 }
-
+// Restore options from local storage
 document.addEventListener('DOMContentLoaded', restoreOptions);
 
 function displayStories(numResults, results) {
@@ -37,11 +36,9 @@ function displayStories(numResults, results) {
     $("#abstract").hide().fadeIn();
 }
 
-
 function callAPI() {
-
     var public = secret;
-    var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/" + categories + "/.json?api-key=" + public.API_KEY;
+    var queryURL = "https://api.nytimes.com/svc/news/v3/content/all/" + CATEGORIES + "/.json?api-key=" + public.API_KEY;
     $(document).ready(function() {
         $.ajax({
             url: queryURL,
@@ -73,9 +70,9 @@ function callAPI() {
     });
 }
 
-
+// Get a particular story by choosing randomly from fetched stories
+// Do basic filtering
 function getStory(numResults, results) {
-
     var bound = Math.min(MAX_STORIES - 1, numResults);
     var randomNum = Math.floor((Math.random() * bound));
     var title = results[randomNum].title;
