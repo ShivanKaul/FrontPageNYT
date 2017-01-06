@@ -6,6 +6,7 @@ function saveOptions() {
     var formElements = document.getElementById('settings').elements;
     var interval = formElements['interval'].value;
     var cycle = formElements['cycle'].checked;
+    var cache_expiry = formElements['cache_expiry'].value;
 
     var categories = Array.prototype.slice.call(formElements['categories']).filter(function(x) {
             return x.checked;
@@ -22,7 +23,8 @@ function saveOptions() {
     chrome.storage.sync.set({
         interval: interval,
         cycle: cycle,
-        categories: categories
+        categories: categories,
+        cache_expiry: cache_expiry
     }, function() {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
@@ -41,7 +43,8 @@ function getOptions() {
     chrome.storage.sync.get({
         interval: 5,
         cycle: false,
-        categories: "all"
+        categories: "all",
+        cache_expiry: 60
     }, function(items) {
         if (items.cycle) {
             document.getElementById('interval').style.display = "block";
@@ -53,6 +56,8 @@ function getOptions() {
         for (var i = 0; i < categoriesArray.length; i++) {
             document.getElementById(categoriesArray[i]).checked = true;
         }
+        // Cache expiry
+        document.getElementById('cache_expiry_' + items.cache_expiry.toString()).checked = true;
     });
 }
 document.addEventListener('DOMContentLoaded', getOptions);
