@@ -35,8 +35,8 @@ function restoreLocalStorage() {
         var currentTime = Math.floor(Date.now() / 1000); // UNIX in seconds
         // Cache expiry : 1 minute
         if (CACHED_TIMESTAMP && currentTime - CACHED_TIMESTAMP < CACHE_EXPIRY) {
-            console.log("[DEBUG][FrontPageNewTab]: Using cached stories, current cache expiry is " + CACHE_EXPIRY + " seconds");
-            console.log("[DEBUG][FrontPageNewTab]: Current time: " + currentTime + ", cache time: " + CACHED_TIMESTAMP);
+            console.log("[DEBUG][FrontPageNYT]: Using cached stories, current cache expiry is " + CACHE_EXPIRY + " seconds");
+            console.log("[DEBUG][FrontPageNYT]: Current time: " + currentTime + ", cache time: " + CACHED_TIMESTAMP);
             display(CACHED_RESULTS, false);
         } else {
             fetchDecodeDisplay();
