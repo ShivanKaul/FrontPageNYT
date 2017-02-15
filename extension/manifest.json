@@ -4,7 +4,7 @@
     "name": "FrontPageNYT",
     "short_name": "FPNYT",
     "description": "Get the latest New York Times headline every time you open a new tab.",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "homepage_url": "http://shivankaul.com",
     "chrome_url_overrides": {
         "newtab": "src/index.html"

@@ -78,34 +78,32 @@ var fetch = function() {
     return new Promise(
         function(resolve, reject) {
             var queryURL = BASE_API_URL + CATEGORIES + "/.json?api-key=" + secretKeys.API_KEY;
-            $(document).ready(function() {
-                $.ajax({
-                    url: queryURL,
-                    dataType: "json",
-                    timeout: AJAX_TIMEOUT * 1000,
-                    statusCode: {
-                        502: function() {
-                            reject("Error 502 thrown while fetching from NYT API.");
-                        }
-                    },
-                    success: function(queryResult) {
-                        // get array of all headlines
-                        var stories = queryResult.results;
-                        var numResults = queryResult.num_results;
-                        resolve({
-                            stories: stories,
-                            numResults: numResults
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        var cacheAvailableText = ". No cached stories available.";
-                        if (!$.isEmptyObject(CACHED_RESULTS)) {
-                            cacheAvailableText = ". Trying to display cached results.";
-                            display(CACHED_RESULTS, false);
-                        }
-                        reject("AJAX call errored/timed out, with error thrown: " + JSON.stringify(jqXHR) + cacheAvailableText);
+            $.ajax({
+                url: queryURL,
+                dataType: "json",
+                timeout: AJAX_TIMEOUT * 1000,
+                statusCode: {
+                    502: function() {
+                        reject("Error 502 thrown while fetching from NYT API.");
                     }
-                });
+                },
+                success: function(queryResult) {
+                    // get array of all headlines
+                    var stories = queryResult.results;
+                    var numResults = queryResult.num_results;
+                    resolve({
+                        stories: stories,
+                        numResults: numResults
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var cacheAvailableText = ". No cached stories available.";
+                    if (!$.isEmptyObject(CACHED_RESULTS)) {
+                        cacheAvailableText = ". Trying to display cached results.";
+                        display(CACHED_RESULTS, false);
+                    }
+                    reject("AJAX call errored/timed out, with error thrown: " + JSON.stringify(jqXHR) + cacheAvailableText);
+                }
             });
         }
     );
@@ -137,12 +135,12 @@ var display = function(results, updateCache) {
         // Add quotes
         var abstract = "&ldquo;" + result.abstract + "&rdquo;";
         // Display
-        document.getElementById("insert").setAttribute('href', link);
-        document.getElementById("insert").setAttribute('title', "Link to NYT article");
-        document.getElementById("insert").innerHTML = title;
+        document.getElementById("headline").setAttribute('href', link);
+        document.getElementById("headline").setAttribute('title', "Link to NYT article");
+        document.getElementById("headline").innerHTML = title;
         document.getElementById("abstract").innerHTML = abstract;
         // Fade in text
-        $("#insert").hide().fadeIn();
+        $("#headline").hide().fadeIn();
         $("#abstract").hide().fadeIn();
         // Store results in local storage
         if (updateCache) saveResults(results);
