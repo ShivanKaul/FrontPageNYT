@@ -1,17 +1,17 @@
 'use strict';
 
 // Local storage: Options
-var CYCLE_INTERVAL = 5; // in seconds
-var BASE_API_URL = "https://api.nytimes.com/svc/news/v3/content/all/";
-var CYCLE = false;
-var CATEGORIES = "all";
+let CYCLE_INTERVAL = 5; // in seconds
+let BASE_API_URL = "https://api.nytimes.com/svc/news/v3/content/all/";
+let CYCLE = false;
+let CATEGORIES = "all";
 // Local storage: Cache
-var CACHED_RESULTS = {};
-var CACHED_TIMESTAMP = null;
-var CACHE_EXPIRY = 60;
+let CACHED_RESULTS = {};
+let CACHED_TIMESTAMP = null;
+let CACHE_EXPIRY = 60;
 // Depends on NYT API
-var MAX_STORIES = 20;
-var AJAX_TIMEOUT = 10; // in seconds
+let MAX_STORIES = 20;
+let AJAX_TIMEOUT = 10; // in seconds
 
 // Restores options and result cache
 // stored in chrome.storage asynchronously
@@ -32,7 +32,7 @@ function restoreLocalStorage() {
         CACHED_TIMESTAMP = items.timestamp;
         CACHE_EXPIRY = items.cache_expiry;
 
-        var currentTime = Math.floor(Date.now() / 1000); // UNIX in seconds
+        let currentTime = Math.floor(Date.now() / 1000); // UNIX in seconds
         // Cache expiry : 1 minute
         if (CACHED_TIMESTAMP && currentTime - CACHED_TIMESTAMP < CACHE_EXPIRY) {
             console.log("[DEBUG][FrontPageNYT]: Using cached stories, current cache expiry is " + CACHE_EXPIRY + " seconds");
@@ -55,12 +55,12 @@ function saveResults(results) {
 
 // Get a particular story by choosing randomly from fetched stories
 function getRandomStory(numResults, stories) {
-    var bound = Math.min(MAX_STORIES - 1, numResults);
-    var randomNum = Math.floor((Math.random() * bound));
-    var title = stories[randomNum].title;
-    var abstract = stories[randomNum].abstract;
-    var url = stories[randomNum].url;
-    var uninteresting = (title == "Letters to the Editor" || title.indexOf("Evening Briefing") > -1 || title == "Reactions" || title.indexOf("Review: ") > -1);
+    let bound = Math.min(MAX_STORIES - 1, numResults);
+    let randomNum = Math.floor((Math.random() * bound));
+    let title = stories[randomNum].title;
+    let abstract = stories[randomNum].abstract;
+    let url = stories[randomNum].url;
+    let uninteresting = (title == "Letters to the Editor" || title.indexOf("Evening Briefing") > -1 || title == "Reactions" || title.indexOf("Review: ") > -1);
     // Basic uninteresting article filtering
     if (uninteresting) {
         // Remove uninteresting story: citation: http://stackoverflow.com/a/5767357/2989693
@@ -74,10 +74,10 @@ function getRandomStory(numResults, stories) {
     };
 }
 
-var fetch = function() {
+let fetch = function() {
     return new Promise(
         function(resolve, reject) {
-            var queryURL = BASE_API_URL + CATEGORIES + "/.json?api-key=" + secretKeys.API_KEY;
+            let queryURL = BASE_API_URL + CATEGORIES + "/.json?api-key=" + secretKeys.API_KEY;
             $.ajax({
                 url: queryURL,
                 dataType: "json",
@@ -89,15 +89,15 @@ var fetch = function() {
                 },
                 success: function(queryResult) {
                     // get array of all headlines
-                    var stories = queryResult.results;
-                    var numResults = queryResult.num_results;
+                    let stories = queryResult.results;
+                    let numResults = queryResult.num_results;
                     resolve({
                         stories: stories,
                         numResults: numResults
                     });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    var cacheAvailableText = ". No cached stories available.";
+                    let cacheAvailableText = ". No cached stories available.";
                     if (!$.isEmptyObject(CACHED_RESULTS)) {
                         cacheAvailableText = ". Trying to display cached results.";
                         display(CACHED_RESULTS, false);
@@ -109,7 +109,7 @@ var fetch = function() {
     );
 }
 
-var decode = function(results) {
+let decode = function(results) {
     // Decompose into title, abstract, url
     return new Promise(
         function(resolve, reject) {
@@ -127,13 +127,16 @@ var decode = function(results) {
     );
 };
 
-var display = function(results, updateCache) {
+let display = function(results, updateCache) {
     function display(results, updateCache) {
-        var result = getRandomStory(results.numResults, results.stories);
-        var title = result.title;
-        var link = result.url;
+        if (document.getElementById("headline") == null) {
+            return;
+        }
+        let result = getRandomStory(results.numResults, results.stories);
+        let title = result.title;
+        let link = result.url;
         // Add quotes
-        var abstract = "&ldquo;" + result.abstract + "&rdquo;";
+        let abstract = "&ldquo;" + result.abstract + "&rdquo;";
         // Display
         document.getElementById("headline").setAttribute('href', link);
         document.getElementById("headline").setAttribute('title', "Link to NYT article");
@@ -143,7 +146,9 @@ var display = function(results, updateCache) {
         $("#headline").hide().fadeIn();
         $("#abstract").hide().fadeIn();
         // Store results in local storage
-        if (updateCache) saveResults(results);
+        if (updateCache) {
+            saveResults(results);
+        }
     }
     display(results, updateCache);
     if (CYCLE) {

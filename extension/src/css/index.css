@@ -45,3 +45,11 @@ body, html {
 	color: grey;
 }
 
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(27, 27, 24);
+    }
+    #headline, #abstract {
+	    color: rgb(243, 229, 204);
+    }
+}

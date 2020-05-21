@@ -3,12 +3,12 @@
 
 function saveOptions() {
 
-    var formElements = document.getElementById('settings').elements;
-    var interval = formElements['interval'].value;
-    var cycle = formElements['cycle'].checked;
-    var cache_expiry = formElements['cache_expiry'].value;
+    let formElements = document.getElementById('settings').elements;
+    let interval = formElements['interval'].value;
+    let cycle = formElements['cycle'].checked;
+    let cacheExpiry = formElements['cacheExpiry'].value;
 
-    var categories = Array.prototype.slice.call(formElements['categories']).filter(function(x) {
+    let categories = Array.prototype.slice.call(formElements['categories']).filter(function(x) {
             return x.checked;
         })
         .map(function(x) {
@@ -24,10 +24,10 @@ function saveOptions() {
         interval: interval,
         cycle: cycle,
         categories: categories,
-        cache_expiry: cache_expiry
+        cacheExpiry: cacheExpiry
     }, function() {
         // Update status to let user know options were saved.
-        var status = document.getElementById('status');
+        let status = document.getElementById('status');
         status.textContent = 'Settings saved!';
         setTimeout(function() {
             status.textContent = '';
@@ -44,7 +44,7 @@ function getOptions() {
         interval: 5,
         cycle: false,
         categories: "all",
-        cache_expiry: 60
+        cacheExpiry: 60
     }, function(items) {
         if (items.cycle) {
             document.getElementById('interval').style.display = "block";
@@ -52,17 +52,17 @@ function getOptions() {
             document.getElementById('cycle').checked = true;
         }
         // Categories
-        var categoriesArray = items.categories.split(";");
-        for (var i = 0; i < categoriesArray.length; i++) {
+        let categoriesArray = items.categories.split(";");
+        for (let i = 0; i < categoriesArray.length; i++) {
             document.getElementById(categoriesArray[i]).checked = true;
         }
         // Cache expiry
-        document.getElementById('cache_expiry_' + items.cache_expiry.toString()).checked = true;
+        document.getElementById('cacheExpiry_' + items.cacheExpiry.toString()).checked = true;
     });
 }
 document.addEventListener('DOMContentLoaded', getOptions);
 
-var cycle = document.getElementById("cycle");
+let cycle = document.getElementById("cycle");
 cycle.addEventListener("change", function(e) {
     if (e.target.checked) {
         //show the div:
