@@ -1,4 +1,4 @@
-// Citation: https://developer.chrome.com/extensions/optionsV2
+// https://developer.chrome.com/extensions/optionsV2
 // Saves options to chrome.storage.sync.
 
 function saveOptions() {
@@ -25,18 +25,8 @@ function saveOptions() {
         cycle: cycle,
         categories: categories,
         cacheExpiry: cacheExpiry
-    }, function() {
-        // Update status to let user know options were saved.
-        let status = document.getElementById('status');
-        status.textContent = 'Settings saved!';
-        setTimeout(function() {
-            status.textContent = '';
-        }, 1250);
     });
 }
-
-document.getElementById('save').addEventListener('click',
-    saveOptions);
 
 function getOptions() {
     // Modify view
@@ -52,23 +42,34 @@ function getOptions() {
             document.getElementById('cycle').checked = true;
         }
         // Categories
-        let categoriesArray = items.categories.split(";");
-        for (let i = 0; i < categoriesArray.length; i++) {
-            document.getElementById(categoriesArray[i]).checked = true;
+        if (items.categories != "all") {
+            let categoriesArray = items.categories.split(";");
+            for (let i = 0; i < categoriesArray.length; i++) {
+                document.getElementById(categoriesArray[i]).checked = true;
+            }
         }
+        
         // Cache expiry
         document.getElementById('cacheExpiry_' + items.cacheExpiry.toString()).checked = true;
     });
 }
-document.addEventListener('DOMContentLoaded', getOptions);
 
-let cycle = document.getElementById("cycle");
-cycle.addEventListener("change", function(e) {
-    if (e.target.checked) {
-        //show the div:
-        document.getElementById('interval').style.display = "block";
-    } else {
-        //hide the div:
-        document.getElementById('interval').style.display = "none";
-    }
-});
+function initialize() {
+    /* Display current options */
+    getOptions();
+    /* If cycle is on, display options */
+    document.getElementById("cycle").addEventListener("change", function(e) {
+        if (e.target.checked) {
+            //show the div:
+            document.getElementById('interval').style.display = "block";
+        } else {
+            //hide the div:
+            document.getElementById('interval').style.display = "none";
+        }
+    });
+    /* If any of the form elements change, save automatically */
+    document.getElementById("settings").addEventListener("change", saveOptions);
+}
+
+document.addEventListener('DOMContentLoaded', initialize);
+

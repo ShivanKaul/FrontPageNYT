@@ -1,6 +1,7 @@
 body {
     padding: 10px;
     font-family: 'Lato', serif;
+    font-size: large;
 }
 
 h1 {
@@ -9,4 +10,16 @@ h1 {
 
 h2 {
     font-size: 100%
+}
+
+#status {
+    color: grey;
+    font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(27, 27, 24);
+        color: rgb(243, 229, 204);
+    }
 }

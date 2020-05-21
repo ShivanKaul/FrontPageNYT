@@ -15,7 +15,7 @@ let AJAX_TIMEOUT = 10; // in seconds
 
 // Restores options and result cache
 // stored in chrome.storage asynchronously
-function restoreLocalStorage() {
+function initialize() {
     // Default
     chrome.storage.sync.get({
         interval: CYCLE_INTERVAL,
@@ -179,4 +179,4 @@ function fetchDecodeDisplay() {
 }
 
 // We start with restoring local storage
-restoreLocalStorage();
+document.addEventListener('DOMContentLoaded', initialize);
