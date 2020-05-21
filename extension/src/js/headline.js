@@ -52,6 +52,15 @@ function saveResults(results) {
     });
 }
 
+function shouldRemove(title, abstract) {
+    return title == "Letters to the Editor" || 
+        title.indexOf("Evening Briefing") > -1 || 
+        title == "Reactions" || 
+        title.indexOf("Review: ") > -1 ||
+        !abstract ||
+        !title;
+}
+
 
 // Get a particular story by choosing randomly from fetched stories
 function getRandomStory(numResults, stories) {
@@ -60,10 +69,10 @@ function getRandomStory(numResults, stories) {
     let title = stories[randomNum].title;
     let abstract = stories[randomNum].abstract;
     let url = stories[randomNum].url;
-    let uninteresting = (title == "Letters to the Editor" || title.indexOf("Evening Briefing") > -1 || title == "Reactions" || title.indexOf("Review: ") > -1);
-    // Basic uninteresting article filtering
-    if (uninteresting) {
-        // Remove uninteresting story: citation: http://stackoverflow.com/a/5767357/2989693
+    let shouldRemoveStory = shouldRemove(title, abstract);
+    // Basic article filtering
+    if (shouldRemoveStory) {
+        // Remove story: http://stackoverflow.com/a/5767357/2989693
         stories.splice(randomNum, 1);
         return getRandomStory(numResults - 1, stories);
     }
